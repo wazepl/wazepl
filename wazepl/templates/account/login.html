@@ -1,0 +1,46 @@
+{% extends "account/base.html" %}
+
+{% load i18n %}
+{% load account %}
+{% load socialaccount %}
+{% load url from future %}
+{% load crispy_forms_tags %}
+
+{% block head_title %}{% trans "Sign In" %}{% endblock %}
+
+{% block account_content%}
+<h1>{% trans "Sign In" %}</h1>
+
+{% if socialaccount.providers  %}
+<p>{% blocktrans %}Please sign in with one
+of your existing third party accounts.{% endblocktrans %}</p>
+
+<div class="col-xs-8 col-xs-offset-2">
+  <a href="{% provider_login_url "facebook" %}"
+    class="btn btn-block btn-social btn-facebook">
+    <i class="fa fa-facebook"></i> Sign in with Facebook
+  </a>
+  <a href="{% provider_login_url "google" %}"
+    class="btn btn-block btn-social btn-google-plus">
+    <i class="fa fa-google-plus"></i> Sign in with Google
+  </a>
+  <a href="{% provider_login_url "github" %}"
+    class="btn btn-block btn-social btn-github">
+    <i class="fa fa-github"></i> Sign in with GitHub
+  </a>
+</div>
+<div class="clearfix"></div>
+<p class="text-center" style="margin-top:2ex;margin-bottom:1ex">{% trans 'or' %}</p>
+{% endif %}
+
+
+<form class="login" method="POST" action="{% url 'account_login' %}">
+  {% csrf_token %}
+  {{ form|crispy }}
+  {% if redirect_field_value %}
+  <input type="hidden" name="{{ redirect_field_name }}" value="{{ redirect_field_value }}" />
+  {% endif %}
+  <button class="btn btn-block btn-primary" type="submit">{% trans "Sign In" %}</button>
+  <a class="button secondaryAction" href="{% url 'account_reset_password' %}">{% trans "Forgot Password?" %}</a>
+</form>
+{% endblock %}

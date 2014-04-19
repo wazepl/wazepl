@@ -1,0 +1,8 @@
+{
+    "name": "wazepl",
+    "dependencies": {
+        "jquery": "~2.1.0",
+        "bootstrap": "~3.1.1",
+        "bootstrap-social": "~4.2.1"
+    }
+}
