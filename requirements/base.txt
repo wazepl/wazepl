@@ -1,5 +1,5 @@
 # Bleeding edge Django
-django==1.7.0b1
+django==1.7.0b2
 
 ## Configuration
 django-configurations==0.8
@@ -8,10 +8,8 @@ django-configurations==0.8
 dj-database-url==0.3.0
 #
 ## Forms
-#django-braces==1.3.1
-django-braces
-#django-crispy-forms==1.4.0
-django-crispy-forms
+django-braces==1.4.0
+django-crispy-forms==1.4.0
 #django-floppyforms==1.1.1
 #
 ## Models
@@ -24,7 +22,7 @@ django-crispy-forms
 ## For user registration, either via email or social
 ## Well-built with regular release cycles!
 #django-allauth==0.15.0
-django-allauth
+django-allauth==0.16.1
 #
 ## For the persistance stores
 #psycopg2==2.5.2
@@ -34,8 +32,7 @@ django-allauth
 #django-autoslug==1.7.2
 #
 ## Useful things
-#django-avatar==2.0
-django-avatar
+django-avatar==2.0
 #
 #
 ## Your custom requirements go here
