@@ -68,9 +68,15 @@
           {% endif %}
           <ul class="nav navbar-nav navbar-right" style="margin-right: 1ex;">
             {% if request.user.is_authenticated %}
-            <li><a href="{% url 'users:detail' request.user.username  %}">{% trans "My Profile" %}</a></li>
             <li><a href="{% url 'account_logout' %}">{% trans "Logout" %}</a></li>
-            <li><a href="{% url 'users:detail' request.user.username  %}">Signed in as {{request.user.username}}</a></li>
+            {% if request.user.is_staff %}
+            <li><a href="{% url 'admin:index' %}">{% trans "Admin" %}</a></li>
+            {% endif %}
+            {% load account %}
+            {% user_display user as user_display %}
+            <li><a href="{% url 'users:detail' request.user.username  %}">
+              {% blocktrans %}Signed in as {{ user_display }}{% endblocktrans %}
+            </a></li>
             {% else %}
             <li><a href="{% url 'account_signup' %}">{% trans "Sign Up" %}</a></li>
             <li><a href="{% url 'account_login' %}">{% trans "Log In" %}</a></li>
@@ -113,6 +119,8 @@
 
       <!-- Latest compiled and minified JavaScript -->
       <script src="//netdna.bootstrapcdn.com/bootstrap/3.1.1/js/bootstrap.min.js"></script>
+
+      {% providers_media_js %}
 
 
       <!-- Your stuff: Third-party javascript libraries go here -->
