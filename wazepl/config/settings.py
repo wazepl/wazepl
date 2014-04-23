@@ -29,6 +29,7 @@ class Common(Configuration):
         'django.contrib.sites',
         'django.contrib.messages',
         'django.contrib.staticfiles',
+        'django.contrib.gis',
 
         # Useful template tags:
         # 'django.contrib.humanize',
@@ -45,6 +46,8 @@ class Common(Configuration):
     LOCAL_APPS = (
         'users',  # custom users app
         # Your stuff: custom apps go here
+        'cachedapi',
+        'roads',
     )
 
     # See: https://docs.djangoproject.com/en/dev/ref/settings/#installed-apps
@@ -275,6 +278,13 @@ class Common(Configuration):
 
 
     ########## Your common stuff: Below this line define 3rd party libary settings
+    WAZE_CACHED_API_DX = 0.05            # BBOX width (longitude)
+    WAZE_CACHED_API_DY = 0.02            # BBOX height (latitude)
+    WAZE_CACHED_API_MX = 0.05            # Expand BBOX for 5% on both sides
+    WAZE_CACHED_API_MY = 0.05
+    WAZE_CACHED_API_DELAY = 3            # Sleep for 3 seconds between requests
+    WAZE_CACHED_API_CACHE_TIME = 24*3600 # Cache entry is valid for 24 hours
+    WAZE_CACHED_API_MEM_SIZE = 100       # Number of tiles to cache in memory
 
 
 class Local(Common):
