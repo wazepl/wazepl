@@ -4,6 +4,7 @@ from __future__ import unicode_literals
 from django.contrib.gis.geos import LineString
 from django.utils.timezone import now
 
+from problems.reporter import Reporter
 
 class ScannerError(Exception):
     def __init__(self, err_code, err_msg='', node=None,
@@ -19,10 +20,11 @@ class ScannerError(Exception):
 
 
 class RoadScanner(object):
-    def __init__(self, api, debug=False, segment_limit=200):
+    def __init__(self, api, debug=False, segment_limit=300):
         self._api = api
         self._debug = debug
         self._check_count_limit = segment_limit
+
 
     def debug_log(self, message):
         if self._debug:
@@ -43,6 +45,9 @@ class RoadScanner(object):
             if segment:
                 s = 'S:{}'.format(segment.id)
 
+        self._reporter.report_problem(err_code, err_msg, node, segment,
+                junction)
+        
         print "ERR: {}{}{} [{}]: {}".format(j, n, s, err_code, err_msg)
 
     def report_exception(self, e):
@@ -64,6 +69,8 @@ class RoadScanner(object):
         self._path = []
         self._recheck_count = 0
         check_count = 0
+
+        self._reporter = Reporter(fragment)
 
         try:
             tile = self._api.get_tile_for_point(

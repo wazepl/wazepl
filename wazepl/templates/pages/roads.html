@@ -1,0 +1,87 @@
+{% extends "base.html" %}
+{% load staticfiles i18n %}
+{% block ng_app %}ng-app="roadsApp"{% endblock ng_app %}
+
+{% block content %}
+
+<div class="container-fluid">
+  <div class="row">
+    <div class="col-md-9">
+      <!--Body content-->
+      <!-- <div ng-view></div> -->
+      <div ng-controller="RoadMapCtrl">
+        <leaflet width="100%" height="480px" center="center" layers="layers" geojson="geojson" markers="markers" id="MainRoadMap"></leaflet>
+      </div>
+
+    </div>
+    <div class="col-md-3" ng-controller="RoadListCtrl">
+      <!--Sidebar content-->
+      <form role="form">
+        <div class="form-group">
+          <label for="road_list_search">Search</label>
+          <input ng-model="query" type="text" class="form-control" id="road_list_search" placeholder="Search">
+        </div>
+        <div class="btn-group">
+          <label class="btn btn-primary" ng-model="rlsearch.no_fragments" btn-checkbox>No fragments</label>
+          <label class="btn btn-primary" ng-model="rlsearch.errors" btn-checkbox>Errors</label>
+          <label class="btn btn-primary" ng-model="rlsearch.no_end" btn-checkbox>No end</label>
+        </div>
+      </form>
+
+{% verbatim %}
+      ng-click="selectRoad(road)" href="#/roads/{{road.id}}"
+      <div style="overflow-y: auto; max-height: 400px;">
+        <accordion>
+          <accordion-group ng-repeat="road in roads | filter:query">
+            <accordion-heading>
+              <h4 class="panel-title" ng-click="selectRoad(road)">
+                {{road.name}}
+              <span class="badge">{{road.fragment_count}}</span>
+              <span class="pull-right label label-success" ng-show="road.is_ok">OK</span>
+              <span class="pull-right label label-danger" ng-hide="road.is_ok">ERR</span>
+              </h4>
+            </accordion-heading>
+
+            <!-- ng-if="road.is_current" -->
+            <p>{{road.short_description}}</p>
+            <p>
+            is cur = {{road.is_current}}
+            </p>
+            <div ng-if="road.is_current" ng-controller="RoadListItemCtrl as item">
+              <accordion>
+                <accordion-group ng-repeat="fragment in item.fragments">
+                  <accordion-heading>
+                    <h4 class="panel-title">
+                      {{fragment.name}}
+                      <span class="pull-right label label-success" ng-show="fragment.is_ok">OK</span>
+                      <span class="pull-right label label-danger" ng-show="!fragment.end_reached">NO END</span>
+                      <span class="pull-right label label-warning" ng-show="fragment.has_errors">ERRORS</span>
+                    </h4>
+                  </accordion-heading>
+                  <ul>
+                    <li>From node {{fragment.beginning_node}}</li>
+                    <li>To node {{fragment.end_node}}</li>
+                    <li>Check time: {{fragment.check_time}}</li>
+                    <li>Created: {{fragment.created_by}} @ {{fragment.created_on}}</li>
+                    <li>Updated: {{fragment.updated_by}} @ {{fragment.updated_on}}</li>
+                  </ul>
+                  <button type="button" class="btn btn-default" ng-click="item.edit_fragment(fragment)">Edit fragment</button>
+                </accordion-group>
+              </accordion>
+              <button type="button" class="btn btn-default" ng-click="item.edit_fragment()">Add fragment</button>
+            </div>
+          </accordion-group>
+        </accordion>
+      </div>
+{% endverbatim %}
+
+    </div>
+  </div>
+</div>
+{% endblock content %}
+
+{% block javascript %}
+  {{ block.super }}
+  <script src="{% static 'js/roads/app.js' %}"></script>
+  <script src="{% static 'js/roads/controllers.js' %}"></script>
+{% endblock javascript %}

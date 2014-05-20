@@ -1,0 +1,15 @@
+<p>Road detail: {{roadId}}
+{{road}}
+</p>
+
+<!-- Large modal -->
+<button class="btn btn-primary" data-toggle="modal" data-target="#roadfragment_edit_modal">Large modal</button>
+<div ng-controller="FragmentEditorController">
+  <button class="btn btn-success" ng-click="editFragment('new')" data-toggle="modal" data-target="#roadfragment_edit_modal">
+    <i class="icon-calendar icon-white"></i> Create New Event</button>
+
+<div class="modal fade" id="roadfragment_edit_modal" ng-include="'/static/partials/roads/roadfragment_edit_modal.html'" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+</div>
+
+</div>
+

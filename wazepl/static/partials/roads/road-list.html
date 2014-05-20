@@ -1,0 +1,23 @@
+Road list
+
+<div class="container-fluid">
+  <div class="row">
+    <div class="col-md-2">
+      <!--Sidebar content-->
+
+      Search: <input ng-model="query">
+
+    </div>
+    <div class="col-md-10">
+      <!--Body content-->
+
+      <ul class="phones">
+        <li ng-repeat="road in roads | filter:query">
+        <a href="#/roads/{{road.id}}">{{road.name}}</a>
+        <p>{{road.description}}</p>
+        </li>
+      </ul>
+
+    </div>
+  </div>
+</div>

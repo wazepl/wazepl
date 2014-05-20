@@ -1,8 +1,16 @@
 {
     "name": "wazepl",
     "dependencies": {
-        "jquery": "~2.1.0",
-        "bootstrap": "~3.1.1",
-        "bootstrap-social": "~4.2.1"
+        "jquery": "~1.10.x",
+        "jquery-cookie": "~1.4.x",
+        "bootstrap": "~3.1.x",
+        "bootstrap-social": "~4.2.x",
+        "angular": "~1.2.x",
+        "angular-cookies": "~1.2.x",
+        "angular-route": "~1.2.x",
+        "angular-resource": "~1.2.x",
+        "angular-bootstrap": "~0.11.x",
+        "angular-leaflet-directive": "~0.7.x",
+        "restangular": "~1.4.x"
     }
 }

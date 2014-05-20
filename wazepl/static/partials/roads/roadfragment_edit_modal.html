@@ -1,0 +1,55 @@
+<div class="modal-header">
+  <button type="button" class="close" ng-click="cancel()" aria-hidden="true">&times;</button>
+  <h4 ng-hide='newFragment' class="modal-title">{{road.name}}: Edit road fragment</h4>
+  <h4 ng-show='newFragment' class="modal-title">{{road.name}}: Create road fragment</h4>
+</div>
+<div class="modal-body row">
+  <form name="rfe_form" novalidate>
+    <div class="col-md-6">
+      <div class="form-group">
+        <label for="rfe_beginning_location_map">Beginning location</label>
+        <leaflet id="rfe_beginning_location_map" width="100%" height="240px" center="center" layers="layers" markers="markers" ></leaflet>
+      </div>
+      <div class="modal-body row">
+        <div class="col-md-6">
+          <div class="form-group">
+            <label for="rfe_fragment_beg_lon">Longitude</label>
+            <input type="number" class="form-control" id="rfe_fragment_beg_lon" placeholder="Longitude" ng-model="markers.beginning_location.lng" />
+          </div>
+        </div>
+        <div class="col-md-6">
+          <div class="form-group">
+            <label for="rfe_fragment_beg_lat">Latitude</label>
+            <input type="number" class="form-control" id="rfe_fragment_beg_lat" placeholder="Latitude" ng-model="markers.beginning_location.lat" />
+            {{markers.beginning_location}}
+
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-6">
+      <div class="form-group">
+        <label for="rfe_fragment_name">Fragment name</label>
+        <input type="text" class="form-control" id="rfe_fragment_name" placeholder="Fragment name" ng-model="fragment.name" required>
+      </div>
+      <div class="form-group">
+        <label for="rfe_beginning_node">Beginning node ID</label>
+        <input type="text" class="form-control" id="rfe_beginning_node" placeholder="Beginning node ID" ng-model="fragment.beginning_node" required>
+      </div>
+      <div class="form-group">
+        <label for="rfe_end_node">End node ID</label>
+        <input type="text " class="form-control" id="rfe_end_node" placeholder="End node ID" ng-model="fragment.end_node" required>
+      </div>
+      <div class="checkbox">
+        <label>
+          <input type="checkbox" ng-model="fragment.auto_add_reverse"> Automatically create reverse fragment
+        </label>
+      </div>
+    </div>
+  </form>
+</div>
+<div class="modal-footer">
+  <button type="button" class="btn btn-default" ng-click="cancel()">Close</button>
+  <button type="button" class="btn btn-primary" ng-click="ok()">Save changes</button>
+</div>
+

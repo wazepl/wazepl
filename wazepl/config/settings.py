@@ -40,6 +40,7 @@ class Common(Configuration):
     THIRD_PARTY_APPS = (
         'crispy_forms',  # Form layouts
         'avatar',  # for user avatars
+        'rest_framework',
     )
 
     # Apps specific for this project go here.
@@ -47,7 +48,9 @@ class Common(Configuration):
         'users',  # custom users app
         # Your stuff: custom apps go here
         'cachedapi',
+        'api',
         'roads',
+        'problems',
     )
 
     # See: https://docs.djangoproject.com/en/dev/ref/settings/#installed-apps
@@ -276,6 +279,18 @@ class Common(Configuration):
     }
     ########## END LOGGING CONFIGURATION
 
+    REST_FRAMEWORK = {
+        # Use hyperlinked styles by default.
+        # Only used if the `serializer_class` attribute is not set on a view.
+        'DEFAULT_MODEL_SERIALIZER_CLASS':
+            'rest_framework.serializers.HyperlinkedModelSerializer',
+
+        # Use Django's standard `django.contrib.auth` permissions,
+        # or allow read-only access for unauthenticated users.
+        'DEFAULT_PERMISSION_CLASSES': [
+            'rest_framework.permissions.DjangoModelPermissionsOrAnonReadOnly'
+        ]
+    }
 
     ########## Your common stuff: Below this line define 3rd party libary settings
     WAZE_CACHED_API_DX = 0.05            # BBOX width (longitude)

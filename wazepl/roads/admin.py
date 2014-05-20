@@ -8,7 +8,7 @@ class RoadFragmentInline(admin.TabularInline):
 
 
 class RoadAdmin(admin.ModelAdmin):
-    list_display = ('road_type', 'name', 'number', 'description',
+    list_display = ('name', 'number', 'road_type', 'short_description',
                     'ramps_allowed', 'fragment_count')
     list_filter = ('road_type',)
     search_fields = ('number',)

@@ -8,6 +8,8 @@ from django.views.generic import TemplateView
 
 from django.contrib import admin
 
+from roads.views import RoadsView
+
 urlpatterns = patterns('',
     url(r'^$',
         TemplateView.as_view(template_name='pages/home.html'),
@@ -15,6 +17,9 @@ urlpatterns = patterns('',
     url(r'^about/$',
         TemplateView.as_view(template_name='pages/about.html'),
         name="about"),
+    url(r'^roads/$',
+        RoadsView.as_view(),
+        name="roads"),
 
     # Uncomment the next line to enable the admin:
     url(r'^admin/', include(admin.site.urls)),
@@ -25,6 +30,8 @@ urlpatterns = patterns('',
 
     # Uncomment the next line to enable avatars
     url(r'^avatar/', include('avatar.urls')),
+
+    url(r'^api/', include("api.urls")),
 
     # Your stuff: custom urls go here
 
